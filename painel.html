@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="css/css2.css">
+		<script src="scripts/js.js"></script>
+		<script src="scripts/update.js"></script>
+		<script src="scripts/chamado.js"></script>
+		
+
+		<title>Painel de Chamado</title>
+	</head>
+	<body>
+
+		<script>
+			const usuario = localStorage.getItem('usuario');
+			console.log('Dados do usuário no painel:', usuario);
+		
+			if (!usuario) {
+				alert('Usuário não está logado. Redirecionando para a página de login...');
+				window.location.href = 'login.html';
+			} else {
+				const parsedUser = JSON.parse(usuario);
+				console.log('Usuário logado:', parsedUser);
+			}
+		</script>
+		
+<!-- < =================================== Menu principal ESQUERDO ========================================= > -->
+		<div class="painelFIxoMenu"> 
+			<div class="fotoPerfil"></div>
+			<button class="mainmenubtn" onclick="openModal()">Meu Perfil</button>
+
+            <script>
+				document.addEventListener('DOMContentLoaded', function () {
+				const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+				if (usuario) {
+					// Atualizar os elementos do modal com os dados do usuário
+					document.getElementById('nome').textContent = `Nome: ${usuario.nome}`;
+					document.getElementById('telefone').textContent = `Número de telefone: ${usuario.telefone}`;
+					document.getElementById('email').textContent = `E-mail: ${usuario.email}`;
+                    document.getElementById('setor').textContent = `Setor/Serviço: ${usuario.nome_setor}`;  // Exibe o nome do setor
+				} else {
+					alert('Nenhum usuário logado.');
+				}
+			});
+			</script>
+			<!------------  modal ------------>
+			<div id="myModal" class="modal">	
+				<div class="modal-content">
+						<span class="close1" onclick="closeModal()">&times;</span>
+						<center>
+								<h2>Dados do meu perfil</h2>
+						</center>
+						<p id="nome">Nome : </p>
+						<p id="telefone">Numero de telefone : </p>
+						<p id="email">E-mail : </p> 
+						 <div class="foto_Modal"></div>
+ 
+						 <button class="mainmenubtn" onclick="abreOpcoesCadastro('div-editar-contato')">Editar Contatos</button>
+						<div class="div-editar-contato">
+							<h3>Editar dados de contato </h3>
+							<p>
+								<font color ="red">
+								 *Observação: Os valores indicados nos campos já estão cadastrados sistema . Se desejar editar alguma informação, basta modificar o campo e salvar. Não deixe os campos apagados e tente salvar pois o sistema não ira permitir.
+								</font>
+							</p>
+							<p>Telefone de contato :  </p>
+							<input type="text" id= "editarTelefone" class="custom-text-input" > 
+							<p>E-mail de contato :  </p>
+							<input type="text" id ="editarEmail" class="custom-text-input" > 
+							 <br><br>
+							 <button class="mainmenubtn" id="salvarContatoBtn">Salvar edições</button>
+							<br><br>
+						</div>
+						<button class="mainmenubtn" onclick="abreOpcoesCadastro('div-editar-senha')"> Trocar Senha</button>
+						<div class="div-editar-senha">
+							<h3>Trocar senha </h3>
+							<p>
+								<font color ="red">
+								 *Observação: Os valores indicados nos campos já estão cadastrados sistema . Se desejar editar alguma informação, basta modificar o campo e salvar. Não deixe os campos apagados e tente salvar pois o sistema não ira permitir.
+								</font>
+							</p>
+							<p>
+								Digite a nova senha :
+							</p>
+							<input type="password" id ="editarSenha1" class="custom-text-input" > 
+							<p>
+								Confirme a senha digitada :  
+							</p>
+							<input type="password" id ="editarSenha2" class="custom-text-input" > <br><br>
+							<button class="mainmenubtn" id="salvarSenhaBtn">Salvar nova senha</button>
+							<br><br>
+						</div>
+
+						<br><br>
+				</div>
+			</div>
+			<!--------------------------->
+			<a href="painel.html"> <button class="mainmenubtn">Chamados</button></a>
+
+			<a href="relatorios.html"> <button class="mainmenubtn" onclick="abreOpcoesCadastro('subPainelFIxoMenu')">Relatórios</button></a>
+			<div class="subPainelFIxoMenu">
+			    <a href="#"><button class="mainmenubtn">Relatórios 1</button></a>
+			    <a href="#"><button class="mainmenubtn">Relatórios 2</button></a>
+			    <a href="#"><button class="mainmenubtn">Relatórios 3</button></a>
+			</div>
+
+			<a href="acessos.html"> <button class="mainmenubtn">Acessos</button></a>
+			<a href="login.html"> <button class="mainmenubtn">Sair</button></a>
+
+		</div>
+<!-- < =================================== Painel Chamados ========================================= > -->
+
+       <div class="margin_painel_pos_menu">
+ <!-- < ................................... INFORMAÇÕES DE SERVIÇO ....................................... > -->
+			<h1> Painel de chamados</h1>
+	 
+
+			<button class="mainmenubtn_geral" onclick="abreOpcoesCadastro('div_esconder_filtro_avancado')">  Aplicar filtro avançado </button>
+
+			<div class="div_esconder_filtro_avancado">
+				<hr><br>
+				Data de cadastro:
+				<input type="date" id="dataCadastro" class="custom-text-input_geral1">
+				<br><br><br>
+				Nome do setor:
+				<input type="text" id="nomeSetor" class="custom-text-input_geral1" placeholder="Digite o nome do setor">
+				<button class="mainmenubtn" id="aplicarFiltro">Aplicar filtro </button>
+				<br><br>
+			</div>
+			<br><br><hr>
+			<button class="botaoDireitoAdicionar" onclick="modalAddEditChamados(-1)">Novo chamado</button>
+			<br>
+          <table class="myTable">
+            <thead>
+                <tr>
+                    <th>Código do Serviço</th>
+                    <th>Título</th>
+                    <th>Setor</th>
+                    <th>Prioridade</th>
+                    <th>Data de Cadastro</th>
+                    <th>Descrição</th>
+                    <th>Responder</th>
+
+
+                </tr>
+            </thead>
+            <tbody id="tabelaChamados">
+                <!-- Dados dos chamados serão inseridos aqui -->
+            </tbody>
+        </table>
+		
+
+ <!-- < ................................... ............................................................... > -->
+		</div>
+		<!-- < =========================================   MODAL PARA EDITAR E ABRIR CHAMADOS ===================================================== > -->
+     <div id="myModal3" class="modal4">    
+         <div class="modal-content4">
+             <span class="close" onclick="closeModal4()">&times;</span>
+             <h1> <font color="black">Chamado </font></h1>
+             <input type="button" value="Ocorência" class="simples_buton_chamados" onclick="ocutarMostrarOcorrenciaAtendimentoModalOcorrencia()"> </input>
+           
+             <hr>
+             <div class="div_dados_Ocorrencia">
+		            <br>
+					<form id="chamado">
+						<input type="text" id="tituloChamado" class="custom-text-input_geral1" placeholder="Título do chamado">
+						<select id="setorSelect" class="mainmenubtn" required>
+                            <option value="">Selecione uma área para direcionar o chamado</option>
+                            <!-- Opções de setor serão preenchidas dinamicamente com JavaScript -->
+                        </select>
+                        <br>
+                        
+                        <!-- Select para prioridade -->
+                        <select id="prioridade" class="mainmenubtn" required>
+                            <option value="">Selecione uma prioridade!</option>
+                            <option value="alta">Alta</option> 
+                            <option value="media">Média</option>
+                            <option value="baixa">Baixa</option> 
+                        </select> 
+						<br>
+						<hr><br>
+						Data do cadastro:
+						<input type="date" id="data" class="custom-text-input_geral1">
+						<br><br>
+						<textarea id="descricao" class="custom-text-input_geral1" rows="15" placeholder="Descreva detalhes do motivo da abertura do chamado"></textarea>
+						<br><br>
+						<hr>
+						<br><br>
+						<button class="mainmenubtn" type="submit">Salvar Chamado</button>
+					</form>
+					
+					
+	       </div>
+
+	    </div>
+		</div>
+		</div>
+
+	</body>
+</html>

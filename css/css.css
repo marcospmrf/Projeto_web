@@ -1,0 +1,102 @@
+h1{
+	color:whitesmoke;
+}
+body{ /*blueviolet*/
+	background-color: rgba(0, 0, 0, 0.5);	;
+	display: flex;
+}	
+
+.painel1 {
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 60%;
+    height: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;  
+
+}
+
+.fotoPainel1 {
+    background-image: url('https://i.pinimg.com/originals/89/67/92/8967925b9d9141e88ced0a9020bdbc5e.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 60%;
+    height: 100%;
+    background-position: center;
+}
+
+.descricaoPainel1 {
+    width: 40%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    display: inline;
+}
+
+.margin1{
+	margin-top: 25%;
+	align-items: center ;
+}
+
+/*@media screen and (max-width: 500px){
+*/
+@media  (min-width: 400px) {
+	h1{
+		 	}
+
+}
+@media (min-width: 400px){
+	h1{ 
+	}
+ }
+
+
+.custom-text-input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-text-input input  {
+  appearance: none;
+  margin-left: 2%;
+  webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid #ccc; /* Cor da borda */
+  border-radius: 5px; /* Raio da borda */
+  outline: none;  
+  padding: 5px 10px; /* Espaçamento interno */
+  font-size: 16px;
+  height: 6%;
+  width: 95%;
+  color: white; /* Cor do texto */
+}
+
+/* Estilo quando o input está em foco */
+.custom-text-input input :focus {
+  border-color: greenyellow; /* Cor da borda quando em foco */
+}
+
+
+.custom-button {
+	
+  width: 100%;
+  background-color: yellowgreen; /* Cor de fundo */
+  border: none;
+  color: white; /* Cor do texto */
+  padding: 10px 20px; /* Espaçamento interno */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 0px; /* Raio da borda */
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: black; /* Cor de fundo ao passar o mouse */
+}
+
+ 
+

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/css2.css">
+        <script src="scripts/js.js"></script>
+        <script src="scripts/criar2.js" defer></script>
+        <script src="scripts/criarsetor.js"></script>
+        <script src="scripts/update.js"></script>
+        <title>Painel de Acessos</title>
+    </head>
+    <body>
+<!-- < =================================== Menu principal ESQUERDO =============================== > -->
+        <div class="painelFIxoMenu"> 
+            <div class="fotoPerfil"></div>
+            <button class="mainmenubtn" onclick="openModal()">Meu Perfil</button>
+            <!------------  modal ------------>
+            <script>
+				document.addEventListener('DOMContentLoaded', function () {
+				const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+				if (usuario) {
+					// Atualizar os elementos do modal com os dados do usuário
+					document.getElementById('nome').textContent = `Nome: ${usuario.nome}`;
+					document.getElementById('telefone').textContent = `Número de telefone: ${usuario.telefone}`;
+					document.getElementById('email').textContent = `E-mail: ${usuario.email}`;
+                    document.getElementById('setor').textContent = `Setor/Serviço: ${usuario.nome_setor}`;  // Exibe o nome do setor
+				} else {
+					alert('Nenhum usuário logado.');
+				}
+			});
+			</script>
+			<div id="myModal" class="modal">	
+				<div class="modal-content">
+						<span class="close1" onclick="closeModal()">&times;</span>
+						<center>
+								<h2>Dados do meu perfil</h2>
+						</center>
+						<p id="nome">Nome : </p>
+						<p id="telefone">Numero de telefone : </p>
+						<p id="email">E-mail : </p> 
+						 <div class="foto_Modal"></div>
+ 
+						 <button class="mainmenubtn" onclick="abreOpcoesCadastro('div-editar-contato')">Editar Contatos</button>
+						<div class="div-editar-contato">
+							<h3>Editar dados de contato </h3>
+							<p>
+								<font color ="red">
+								 *Observação: Os valores indicados nos campos já estão cadastrados sistema . Se desejar editar alguma informação, basta modificar o campo e salvar. Não deixe os campos apagados e tente salvar pois o sistema não ira permitir.
+								</font>
+							</p>
+							<p>Telefone de contato :  </p>
+							<input type="text" id= "editarTelefone" class="custom-text-input" > 
+							<p>E-mail de contato :  </p>
+							<input type="text" id ="editarEmail" class="custom-text-input" > 
+							 <br><br>
+							 <button class="mainmenubtn" id="salvarContatoBtn">Salvar edições</button>
+							<br><br>
+						</div>
+						<button class="mainmenubtn" onclick="abreOpcoesCadastro('div-editar-senha')"> Trocar Senha</button>
+						<div class="div-editar-senha">
+							<h3>Trocar senha </h3>
+							<p>
+								<font color ="red">
+								 *Observação: Os valores indicados nos campos já estão cadastrados sistema . Se desejar editar alguma informação, basta modificar o campo e salvar. Não deixe os campos apagados e tente salvar pois o sistema não ira permitir.
+								</font>
+							</p>
+							<p>
+								Digite a nova senha :
+							</p>
+							<input type="password" id ="editarSenha1" class="custom-text-input" > 
+							<p>
+								Confirme a senha digitada :  
+							</p>
+							<input type="password" id ="editarSenha2" class="custom-text-input" > <br><br>
+							<button class="mainmenubtn" id="salvarSenhaBtn">Salvar nova senha</button>
+							<br><br>
+						</div>
+
+						<br><br>
+				</div>
+			</div>
+            <!--------------------------->
+                        <a href="painel.html"> <button class="mainmenubtn">Chamados</button></a>
+
+                        <a href="relatorios.html"> <button class="mainmenubtn" onclick="abreOpcoesCadastro('subPainelFIxoMenu')">Relatórios</button></a>
+                    
+                        <a href="acessos.html"> <button class="mainmenubtn">Acessos</button></a>
+                        <a href="painel.html"> <button class="mainmenubtn">Sair</button></a>
+        </div>
+<!-- < =================================== Painel Acessos ========================================= > -->
+
+
+        <div class="margin_painel_pos_menu">
+ <!-- < ................................... INFORMAÇÕES DE SERVIÇO ....................................... > -->
+
+            <h1> Gerenciador de acessos e serviços</h1>
+
+            <h3>Criar ou editar novo setor</h3>
+           
+            <button class="mainmenubtn_geral" onclick="abreOpcoesCadastro('indicadorServicos')"> Criar e vizualizar setores </button>
+            <div class ="indicadorServicos">
+                <h2>Preencha o campo abaixo para visualizar o setor</h2>
+                <input
+                    type="text"
+                    class="custom-text-input_geral1"
+                    placeholder="Adicione o Nome ou Id do setor"
+                >
+                <br>
+                <button class="mainmenubtn" id="aplicarFiltroButton">Aplicar filtro Avançado</button>
+
+                <button class="botaoDireitoAdicionar" onclick="modalAddEditServico()" >Novo setor </button>
+
+                <br><br>
+                
+                <table class="myTable">
+                    <thead>
+                        <tr>
+                            <th>Código do Serviço</th>
+                            <th>Setor</th>
+                            <th>Status</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody id="setoresTableBody">
+                        <!-- Os resultados serão inseridos aqui -->
+                    </tbody>
+                </table>
+                    
+            </div>
+ 
+<!-- < ................................... INFORMAÇÕES DE USUARIO  ....................................... > -->
+            <br><br><br><br>
+            <hr>
+
+            <h3>Criar ou editar usuários</h3>
+
+<button class="mainmenubtn_geral" onclick="abreOpcoesCadastro('indicadorUsuario')">Criar e editar usuários</button>
+<div class="indicadorUsuario">
+    <h2>Preencha o campo abaixo para visualizar ou editar usuários</h2>
+
+    <!-- Corrigido o ID do input -->
+    <input
+        type="text"
+        id="filtroNomeCPF"
+        class="custom-text-input_geral1"
+        placeholder="Adicione o Nome ou CPF do usuário"
+    />
+    <button class="mainmenubtn" id="aplicarFiltroUsuarios">Aplicar filtro</button>
+    <button class="botaoDireitoAdicionar" onclick="modalAddEditUsuario()">Novo usuário</button>
+
+    <table class="myTable">
+        <thead>
+            <tr>
+                <th>Código do usuário</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>CPF</th>
+                <th>Código do setor</th>
+            </tr>
+        </thead>
+        <tbody id="usuariosTableBody">
+            <!-- Os dados serão inseridos aqui pelo JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+        </div>
+          <!------------  modal adicionar e editar serviço/ area  ------------>
+        <div id="myModal2" class="modal2">    
+            <div class="modal-content2">
+                <form id="criarsetor">
+                <a href="acessos.html" class="botaoDireitoAdicionar" >Voltar</a>
+                <center><h2>Registro de serviços </h2></center>
+                <br><hr><br>
+                <h2>Identificador do Serviço :</h2>
+                <input type="text" id ="Setor" class="custom-text-input_geral1"  placeholder="Insira um nome ao serviço que deseja adicionar ">
+                <h2>Descrição do serviço : </h2>
+                <textarea id="descricao" class="custom-text-input_geral1" rows="15" placeholder="Descreva informações do serviço adicionado na plataforma"></textarea>
+               
+                <select id="role" class="mainmenubtn">
+                    <option value="">Selecione um status para ativar ou desativo para o serviço  na plataforma : </option>
+                    <option value="ativo"> Ativo </option>
+                    <option value="desativado">Desativado</option>
+                </select>
+                <br><br><hr>
+                <a href="#"><button class="mainmenubtn" type="submit">Salvar  </button></a>
+            </form>
+            <a href="painel.html"><button class="mainmenubtn" type="submit">Sair  </button></a>
+
+            </div>
+            
+        </div>
+
+          <!------------  modal adicionar e editar usuário  ------------>
+          <div id="myModal3" class="modal3">
+            <div class="modal-content3">
+                <form id="cadastrarusuario">
+                    <a href="acessos.html" class="botaoDireitoAdicionar">Voltar</a>
+                    <center><h2>Registro de Usuários</h2></center>
+                    <hr>
+    
+                    <!-- Campo Nome -->
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="Nome" name="nome" class="custom-text-input_geral1" placeholder="Nome do usuário" required>
+                    <br><br>
+    
+                    <!-- Campo E-mail -->
+                    <label for="email">E-mail de contato:</label>
+                    <input type="email" id="Email" name="email" class="custom-text-input_geral1" placeholder="E-mail de contato" required>
+                    <br><br>
+    
+                    <!-- Campo Telefone -->
+                    <label for="telefone">Telefone:</label>
+                    <input type="text" id="Telefone" name="telefone" class="custom-text-input_geral1" placeholder="Telefone de contato">
+                    <br><br>
+    
+                    <!-- Campo CPF -->
+                    <label for="cpf">CPF / Matrícula do usuário:</label>
+                    <input type="text" id="cpf" name="cpf" class="custom-text-input_geral1" placeholder="CPF ou Matrícula do usuário">
+                    <br><br>
+    
+                    <!-- Campo Login (Username) -->
+                    <label for="username">Login do usuário:</label>
+                    <input type="text" id="username" name="username" class="custom-text-input_geral1" placeholder="Login de acesso" required>
+                    <br><br>
+    
+                    <!-- Campo Senha -->
+                    <label for="password">Senha do usuário:</label>
+                    <input type="password" id="password" name="password" class="custom-text-input_geral1" placeholder="Senha de acesso" required>
+                    <br><br>
+    
+                    <!-- Seleção de Setor -->
+                    <label for="codigo_setor">Setor de atuação:</label>
+                    <select id="codigo_setor" name="codigo_setor" class="custom-text-input_geral1" required>
+                        <option value="">Selecione um código de setor</option>
+                    </select>
+                    <br><br>
+    
+                    <!-- Seleção do Tipo de Acesso -->
+                    <label for="role">Tipo de acesso:</label><br>
+                    <input type="radio" id="admin" name="role" value="admin" required>
+                    <label for="admin">Admin</label>
+                    <input type="radio" id="user" name="role" value="user" required>
+                    <label for="user">User</label>
+                    <br><hr>
+    
+                    <!-- Botão de Submissão -->
+                    <button type="submit" class="mainmenubtn">Salvar dados</button>
+                </form>
+            </div>
+        </div>
+        <!-- < ============================================================================================== > -->
+    </body>
+</html>

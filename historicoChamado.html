@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico do Chamado</title>
+    <link rel="stylesheet" href="css/css4.css">
+</head>
+<body>
+    <div class="container">
+        <a href="relatorios.html" style="text-decoration: none; border: none;">
+            <button class="mainmenubtn">Voltar</button>
+        </a>
+        
+        <h1>Histórico do Chamado</h1>
+        <p id="chamadoInfo">Chamado ID: <span id="chamadoId"></span> - <span id="chamadoTitulo"></span></p>
+
+        <div id="historicoRespostas">
+            <!-- Respostas anteriores serão carregadas aqui -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idChamado = urlParams.get('id');
+
+            document.getElementById("chamadoId").innerText = idChamado;
+
+            carregarHistoricoChamado(idChamado);
+
+            function voltar() {
+                window.location.href = "relatorios.html"; // Redireciona para a página de relatórios
+            }
+        });
+
+        async function carregarHistoricoChamado(idChamado) {
+            try {
+                const response = await fetch(`http://localhost:3000/api/historicoChamado/${idChamado}`);
+                const respostas = await response.json();
+
+                const historicoContainer = document.getElementById('historicoRespostas');
+                historicoContainer.innerHTML = '<h3>Histórico de Respostas</h3>';
+
+                respostas.forEach(resposta => {
+                    const respostaDiv = document.createElement('div');
+                    respostaDiv.classList.add('resposta-item');
+                    respostaDiv.innerHTML = `
+                        <p><strong>Data:</strong> ${new Date(resposta.data_resposta).toLocaleString()}</p>
+                        <p>${resposta.texto_resposta}</p>
+                        <hr>
+                    `;
+                    historicoContainer.appendChild(respostaDiv);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar histórico do chamado:", error);
+                alert("Erro ao carregar histórico do chamado.");
+            }
+        }
+    </script>
+</body>
+</html>

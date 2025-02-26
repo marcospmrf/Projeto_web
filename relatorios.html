@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/css2.css">
+        <script src="scripts/js.js"></script>
+        <script src="scripts/update.js"></script>
+        <title>Painel de Acessos</title>
+    </head>
+    <body>
+
+        <script>
+			const usuario = localStorage.getItem('usuario');
+			console.log('Dados do usuário no painel:', usuario);
+		
+			if (!usuario) {
+				alert('Usuário não está logado. Redirecionando para a página de login...');
+				window.location.href = 'login.html';
+			} else {
+				const parsedUser = JSON.parse(usuario);
+				console.log('Usuário logado:', parsedUser);
+			}
+		</script>
+        <!-- < =================================== Menu principal ESQUERDO =============================== > -->
+        <div class="painelFIxoMenu"> 
+            <div class="fotoPerfil"></div>
+            <button class="mainmenubtn" onclick="openModal()">Meu Perfil</button>
+            <!-- Modal com dados do perfil do usuário -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+                    if (usuario) {
+                        document.getElementById('nome').textContent = `Nome: ${usuario.nome}`;
+                        document.getElementById('telefone').textContent = `Número de telefone: ${usuario.telefone}`;
+                        document.getElementById('email').textContent = `E-mail: ${usuario.email}`;
+                        document.getElementById('setor').textContent = `Setor/Serviço: ${usuario.nome_setor}`;
+                    } else {
+                        alert('Nenhum usuário logado.');
+                    }
+                });
+            </script>
+            <div id="myModal" class="modal">    
+                <div class="modal-content">
+                    <span class="close1" onclick="closeModal()">&times;</span>
+                    <center>
+                        <h2>Dados do meu perfil</h2>
+                    </center>
+                    <p id="nome">Nome: </p>
+                    <p id="telefone">Número de telefone: </p>
+                    <p id="email">E-mail: </p>
+                    <div class="foto_Modal"></div>
+ 
+                    <!-- Opções de edição de contato, senha e foto de perfil -->
+                    <button class="mainmenubtn" onclick="abreOpcoesCadastro('div-editar-contato')">Editar Contatos</button>
+                    <div class="div-editar-contato">
+                        <h3>Editar dados de contato</h3>
+                        <p><font color ="red">*Observação: Os valores indicados nos campos já estão cadastrados no sistema. Se desejar editar alguma informação, basta modificar o campo e salvar.</font></p>
+                        <p>Telefone de contato:</p>
+                        <input type="text" id="editarTelefone" class="custom-text-input"> 
+                        <p>E-mail de contato:</p>
+                        <input type="text" id="editarEmail" class="custom-text-input"> 
+                        <br><br>
+                        <button class="mainmenubtn">Salvar edições</button>
+                        <br><br>
+                    </div>
+                    <button class="mainmenubtn" onclick="abreOpcoesCadastro('div-editar-senha')">Trocar Senha</button>
+                    <div class="div-editar-senha">
+                        <h3>Trocar senha</h3>
+                        <p><font color ="red">*Observação: Se desejar editar alguma informação, basta modificar o campo e salvar.</font></p>
+                        <p>Digite a nova senha:</p>
+                        <input type="password" id="editarSenha1" class="custom-text-input"> 
+                        <p>Confirme a senha digitada:</p>
+                        <input type="password" id="editarSenha2" class="custom-text-input"> 
+                        <br><br>
+                        <button class="mainmenubtn">Salvar nova senha</button>
+                        <br><br>
+
+                    <br><br>
+                </div>
+            </div>
+
+            <!-- Links para navegação -->
+            <a href="painel.html"><button class="mainmenubtn">Chamados</button></a>
+            <a href="relatorios.html"><button class="mainmenubtn">Relatórios</button></a>
+            <a href="acessos.html"><button class="mainmenubtn">Acessos</button></a>
+            <a href="painel.html"><button class="mainmenubtn">Sair</button></a>
+        </div>
+
+        <!-- < =================================== Painel Acessos ========================================= > -->
+        <div class="margin_painel_pos_menu">
+            <h1>Gerenciador de chamados</h1>
+            <h3>Histórico de chamados</h3>
+           
+            <button class="mainmenubtn_geral" onclick="abreOpcoesCadastro('indicadorServicos')">Histórico de chamados</button>
+            <div class="indicadorServicos">
+                <h2>Preencha o campo abaixo para filtrar chamados</h2>
+                <input type="text" class="custom-text-input_geral1" placeholder="Adicione o código do chamado"> 
+                <br>
+                <a href="#"><button class="mainmenubtn">Aplicar filtro Avançado</button></a>
+                <br> <br> 
+                <table class="myTable">
+                    <thead>
+                        <tr>  
+                            <th>Codigo do serviço</th>
+                            <th>Nome do serviço</th>
+                            <th>Status</th>
+                            <th>Data de Cadastro</th>
+                            <th>Breve descrição do Serviço</th>
+                            <th>Histórico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- As linhas de chamados encerrados serão adicionadas aqui pelo JavaScript -->
+                    </tbody>
+                </table>     
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    carregarChamadosEncerrados();
+                });
+                
+                async function carregarChamadosEncerrados() {
+                    try {
+                        const response = await fetch('http://localhost:3000/api/chamadosEncerrados');
+                        const chamadosEncerrados = await response.json();
+                
+                        const tabela = document.querySelector('.myTable tbody');
+                        tabela.innerHTML = ''; // Limpa a tabela antes de adicionar os dados
+                
+                        chamadosEncerrados.forEach(chamado => {
+                            const linha = document.createElement('tr');
+                
+                            linha.innerHTML = `
+                                <td>${chamado.id}</td>
+                                <td>${chamado.titulo}</td>
+                                <td>${chamado.status}</td>
+                                <td>${new Date(chamado.data_cadastro).toLocaleDateString()}</td>
+                                <td>${chamado.descricao}</td>
+                                <td><button onclick="visualizarHistorico(${chamado.id})">Histórico</button></td>
+                            `;
+                
+                            tabela.appendChild(linha);
+                        });
+                    } catch (error) {
+                        console.error("Erro ao carregar chamados encerrados:", error);
+                    }
+                }
+                
+                function visualizarHistorico(id) {
+                    window.location.href = `historicoChamado.html?id=${id}`;
+                }
+            </script>
+        </div>
+    </body>
+</html>

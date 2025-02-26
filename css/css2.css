@@ -1,0 +1,700 @@
+
+
+/* ====================  Elementos gerais ========================  */
+
+h1 {
+    color: rgb(21, 19, 19);
+    text-align: center;
+    font-size: 50px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); /* Sombra adicionada */
+}
+
+
+.margin_painel_pos_menu{
+
+    margin-top: 2%;
+    margin-left: 19%;
+}
+
+ h3{
+    color: black ;
+    font-size: 30px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+ }
+
+
+
+body {
+    background-color: #ecebe9;
+}
+
+
+.botaoDireitoAdicionar {
+    background: linear-gradient(to right, #ffffff, #e0e0e0); /* Gradiente de fundo */
+    color: black; /* Cor do texto */
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px; /* Bordas arredondadas */
+    cursor: pointer;
+    padding: 10px 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    transition: transform 0.2s; /* Suaviza o efeito de transformação */
+    margin: 10px; /* Espaçamento */
+    margin-left: 1000px;
+}
+
+.botaoDireitoAdicionar:hover {
+    background: linear-gradient(to right, #e0e0e0, #ffffff); /* Gradiente invertido ao passar o mouse */
+    transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+}
+
+/* --------------------------- Botões geral pagina ---------------------------  */
+
+.mainmenubtn_geral {
+    background: linear-gradient(to right, #ffffff, #e0e0e0); /* Degradê em branco e cinza claro */
+    color: black; /* Texto preto para contraste */
+    font-size: 16px; /* Tamanho menor */
+    font-weight: bold;
+    border: none;
+    border-radius: 8px; /* Bordas levemente arredondadas */
+    cursor: pointer;
+    width: 200px; /* Reduzindo a largura do botão */
+    height: 45px; /* Reduzindo a altura do botão */
+    margin-top: 2%;
+    transition: background 0.3s ease, transform 0.2s ease; /* Efeito suave */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra leve para dar destaque */
+    display: block; /* Necessário para centralização com margin auto */
+    margin: 2% auto; /* Centraliza horizontalmente */
+}
+
+.mainmenubtn_geral:hover {
+    background: linear-gradient(to right, #e0e0e0, #ffffff); /* Inverte o degradê ao passar o mouse */
+    transform: scale(1.03); /* Leve aumento para destacar */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3); /* Aumenta a sombra ao passar o mouse */
+}
+
+/* Centralizar o botão verticalmente dentro do container pai */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* O container ocupa toda a altura da tela */
+}
+
+
+/* ---------------------------  Campos input text geral 1  ---------------------------  */
+
+.custom-text-input_geral1 {
+    margin-top: 1%;
+   display: inline-block;
+  width: 99%;
+    font-size: 20px;
+}
+
+.custom-text-input_geral1 input  {
+ 
+  margin-left: 0%;
+
+ 
+  background-color: transparent;
+  border: 2px solid #ecebe9;  
+  border-radius: 5px;  
+  
+  padding: 5px 10px; 
+
+  height: 6%;
+  width: 95%;
+  color: #ecebe9; 
+}
+
+
+.custom-text-input_geral1 input :focus {
+  border-color: greenyellow;  
+}
+ 
+ 
+
+
+
+
+/* --------------------------- Table de listagem geral --------------------------- */
+
+.myTable {
+    font-family: Ubuntu, sans-serif;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 2vh;
+    margin-bottom: 20%;
+    border-collapse: collapse;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra */
+}
+
+.myTable th {
+    background: linear-gradient(to right, rgb(236, 235, 233), rgb(246, 248, 253)); /* Gradiente no cabeçalho */
+    padding: 20px;
+    color: black; /* Texto em preto para destaque */
+    font-weight: bold;
+    text-align: left;
+    border: 1px solid #ecebe9;
+}
+
+
+.myTable td, .myTable th {
+    border: 1px solid #ecebe9;
+    padding: 15px;
+}
+
+.myTable td {
+    background-color: #ffffff; /* Fundo branco para células */
+    color: #000;
+}
+
+.myTable tr:nth-child(even) td {
+    background-color: #f9f9f9; /* Fundo alternado para linhas pares */
+}
+
+.myTable tr:hover td {
+    background-color: #e0e0e0; /* Fundo ao passar o mouse */
+    cursor: pointer;
+}
+
+/* ================================================================= */
+/* ====================== menu  esquedo fixo ======================  */
+.painelFIxoMenu {
+    display: block;
+    width: 20%;
+    height: 105%;
+    background-color : rgba(0, 0, 0, 0.4);
+    margin-top: -2%;
+    margin-left: -2%;
+    margin-bottom: 1%;  
+    margin-right: 81%; 
+    position: fixed;
+    box-shadow: 0 0 30px black;
+}
+
+.subPainelFIxoMenu{
+    display: none;
+    
+    background-color: black;
+
+}
+
+
+.fotoPerfil {
+    width: 100%;
+    margin-top: 10%;
+    margin-bottom: 15%;
+    height: 30%;
+    background-image: url('../img/logo.jpeg'); /* Substitua pelo caminho correto */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+/* --------------------------- Botões laterais esquedo fixo ---------------------------  */
+.mainmenubtn {
+    background-color: black;
+    color: #ecebe9;
+    font-size: 120%;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 5%;
+    margin-top: 2%;
+    transition: all 0.2s ease; /* Duração curta e suave */
+}
+
+.mainmenubtn:hover {
+    background-color: #444; /* Cor de fundo alterada */
+    color: white; /* Cor do texto alterada */
+    transform: scale(1.01); /* Aumenta apenas 1% */
+}
+/* ================================================================= */
+/* ====================== Modal meu perfil de ediçao ======================  */
+.modal {
+display: none; /* Inicialmente oculto */
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);  
+}
+
+.modal-content {
+background-color: #ecebe9;
+width: 60%;
+height: 95%;
+max-width: 600px;
+margin: 20px auto; 
+border-radius: 5px;
+padding: 5px;
+ 
+overflow-x: auto;  
+
+}
+
+.close {
+float: right;
+cursor: pointer;
+margin-right: 100px;
+margin-top: 50px;
+}
+
+.foto_Modal {
+    height: 60%;
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-image: url('../img/logo.jpeg'); /* Atualize com o caminho correto */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.div-editar-contato{
+
+    display: none;
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+.div-editar-senha{
+
+    display: none;
+    margin-top: 2%;
+    margin-left: 2%;
+
+}
+
+.div-editar-trocar-foto{
+
+
+    display: none;
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+/* ---------------------------  Campos input text do modal ---------------------------  */
+
+.custom-text-input {
+  position: relative;
+  display: inline-block;
+  width: 97%;
+}
+
+.custom-text-input input  {
+  appearance: none;
+  margin-left: 0%;
+
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid #ccc;  
+  border-radius: 5px;  
+  outline: none;  
+  padding: 5px 10px; 
+  font-size: 16px;
+  height: 6%;
+  width: 95%;
+  color: white; 
+}
+
+
+.custom-text-input input :focus {
+  border-color: greenyellow;  
+}
+
+
+.custom-button {
+    
+  width: 100%;
+  background-color: yellowgreen;  
+  border: none;
+  color: white;  
+  padding: 10px 20px;  
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 0px;  
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: black;  
+}
+
+ 
+ 
+/* ================================================================= */
+/* ==========  Elementos pagina acessos e serviços =================  */
+
+.indicadorServicos{
+    margin-top: 2%;
+    display: none;
+}
+
+.indicadorUsuario{
+    margin-top: 2%;
+
+    display: none;
+}
+
+ 
+
+/* ---------------------------  modal 2 para editar e add servicos---------------------------  */
+
+
+.modal2 {
+display: none; /* Inicialmente oculto */
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.9);  
+}
+
+.modal-content2 {
+background-color: #ecebe9;
+width: 90%;
+height: 95%;
+max-width: 95%;
+margin: 20px auto; 
+border-radius: 5px;
+padding: 5px;
+ 
+overflow-x: hidden;  
+overflow-y: auto;
+
+}
+
+.close2 {
+float: right;
+cursor: pointer;
+}
+
+/* ---------------------------  modal 2 para editar e add servicos---------------------------  */
+
+
+.modal3 {
+display: none; /* Inicialmente oculto */
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.9);  
+}
+
+.modal-content3 {
+background-color: white;
+width: 90%;
+height: 95%;
+max-width: 95%;
+margin: 20px auto; 
+border-radius: 5px;
+padding: 5px;
+ 
+overflow-x: hidden;  
+
+}
+
+.close3 {
+float: right;
+cursor: pointer;
+}
+
+
+ 
+/* ================================================================= */
+/* ==========  Elementos pagina de chamados painel.html =================  */
+
+.div_esconder_filtro_avancado{
+
+    display: none;
+}
+
+
+.modal4 {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* Cor de fundo com opacidade */
+    overflow: hidden; /* Evita barras de rolagem extras no contêiner */
+}
+
+.modal-content4 {
+    background-color: #ecebe9;
+    width: 90%;
+    height: 95%;
+    max-width: 95%;
+    margin: 20px auto;
+    border-radius: 5px;
+    padding: 5px;
+
+    overflow-x: hidden; /* Remove a barra horizontal */
+    overflow-y: auto; /* Mantém apenas a barra vertical */
+}
+
+.close4{
+float: right;
+cursor: pointer;
+}
+
+ 
+
+.simples_buton_chamados {
+  background-color: black;  
+  color: white;  
+  padding: 10px 20px;  
+  text-align: center;
+  font-size: 16px;
+  border-radius: 0px;  
+  cursor: pointer;
+}
+
+.simples_buton_chamados:hover {
+  background-color: rgb(49, 48, 50);  
+}
+
+ .div_dados_Ocorrencia{
+    display: block;
+    
+ }
+
+ .div_dados_atendimento{
+     display: none;
+ }
+
+
+/*-======================*/
+.botaorespostaresponsivel{
+    display: none;
+
+}
+
+ 
+/* ================================================================= */
+/* ==========  Elementos pagina de contatos contatos.html =================  */
+
+.div_esconder_filtro_avancado_contaos{
+
+    display: none;
+}
+
+
+
+.modal5{
+display: none; /* Inicialmente oculto */
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.9);  
+}
+
+.modal-content5 {
+background-color: white;
+width: 90%;
+height: 95%;
+max-width: 95%;
+margin: 20px auto; 
+border-radius: 5px;
+padding: 5px;
+overflow-x: auto;  
+
+}
+
+.close5{
+float: right;
+cursor: pointer;
+}
+
+/* Estilo para o modal de resposta */
+.modalResponder {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Estilo para o conteúdo do modal */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Centralização e aumento do campo de texto */
+/* Estilo para o modal de resposta */
+/* Estilo para o fundo semitransparente do modal */
+/* Estilo para o fundo semitransparente do modal */
+.modalResponder {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Estilo para o conteúdo do modal */
+ .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    width: 600px;
+    max-width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+}
+
+/* Estilo para o botão de fechar */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Estilo para o campo de texto */
+.respostaTexto {
+    width: 100%;
+    height: 300px; /* Aumenta a altura do campo de texto */
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none; /* Desativa redimensionamento */
+    box-sizing: border-box; /* Inclui padding na largura total */
+    margin-top: 15px;
+}
+
+/* Estilo para o botão de enviar */
+.button {
+    margin-top: 20px;
+    padding: 5px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+/* Estilo para o modal de resposta */
+.modalResponder {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.respostaTexto {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    margin-top: 15px;
+}
+
+.button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+.myTable td:last-child button {
+    background-color: #ecebe9; 
+    color: black; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 8px 15px; 
+    font-size: 14px; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+}
+
+.myTable td:last-child button:hover {
+    background-color: rgb(99, 160, 99); /* Azul escuro ao passar o mouse */
+    transform: scale(1.1); /* Leve aumento no botão */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra */
+}
+
+
+.close1 {
+    position: absolute;
+    top: 10px; /* Ajuste conforme necessário */
+    right: 10px; /* Ajuste conforme necessário */
+    font-size: 24px; /* Tamanho do "X" */
+    cursor: pointer; /* Cursor de ponteiro para indicar que é clicável */
+  }

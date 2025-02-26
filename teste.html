@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/css2.css">
+    <script src="scripts/js.js"></script>
+    <script src="scripts/chamado.js"></script>
+    <script src="scripts/update.js"></script>
+    <script src="scripts/buscarchamado.js"></script>
+    <title>Painel de Chamado</title>
+</head>
+<body>
+    <!-- Menu principal ESQUERDO -->
+    <div class="painelFIxoMenu"> 
+        <div class="fotoPerfil"></div>
+        <button class="mainmenubtn" onclick="openModal()">Meu Perfil</button>
+        <!-- Modal do perfil -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <center><h2>Dados do meu perfil</h2></center>
+                <p id="nome">Nome: </p>
+                <p id="telefone">Número de telefone: </p>
+                <p id="email">E-mail: </p>
+                <p id="setor">Setor/Serviço: </p>
+            </div>
+        </div>
+        <!-- Botões do menu -->
+        <a href="painel.html"><button class="mainmenubtn">Chamados</button></a>
+        <a href="relatorios.html"><button class="mainmenubtn">Relatórios</button></a>
+        <a href="acessos.html"><button class="mainmenubtn">Acessos</button></a>
+        <a href="login.html"><button class="mainmenubtn">Sair</button></a>
+    </div>
+
+    <!-- Painel de Chamados -->
+    <div class="margin_painel_pos_menu">
+        <h1>Painel de chamados</h1>
+
+        <!-- Botão Aplicar Filtro Avançado -->
+        <button class="mainmenubtn_geral" onclick="abreOpcoesCadastro('div_esconder_filtro_avancado')">Aplicar filtro avançado</button>
+
+        <!-- Filtro Avançado -->
+        <div class="div_esconder_filtro_avancado">
+            <hr><br>
+            Data de inicio:
+            <input type="date" class="custom-text-input_geral1">
+            <br><br>
+            Até a data Final:
+            <input type="date" class="custom-text-input_geral1">
+            <br>
+            <!-- Outros campos de filtro -->
+        </div>
+        <br><hr>
+
+        <!-- Botão Novo Chamado -->
+        <button class="botaoDireitoAdicionar" onclick="modalAddEditChamados(-1)">Novo chamado</button>
+        <br>
+
+        <!-- Tabela de Chamados -->
+        <table class="myTable">
+            <thead>
+                <tr>
+                    <th>Código do Serviço</th>
+                    <th>Título</th>
+                    <th>Setor</th>
+                    <th>Prioridade</th>
+                    <th>Data de Cadastro</th>
+                    <th>Descrição</th>
+                    <th>Responder</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaChamados">
+                <!-- Dados dos chamados serão inseridos aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para Novo Chamado -->
+    <div id="modalNovoChamado" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal4()">&times;</span>
+            <h2>Novo Chamado</h2>
+            <form id="novoChamadoForm">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+                <br>
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" required></textarea>
+                <br>
+                <button type="submit">Salvar Chamado</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts/chamado.js"></script>
+</body>
+</html>

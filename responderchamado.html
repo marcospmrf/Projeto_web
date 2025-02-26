@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responder Chamado</title>
+    <link rel="stylesheet" href="css/css3.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Botão de Voltar no canto superior direito -->
+        <button class="back-button" id="btnVoltar">Voltar</button>
+        
+        <h1>Responder ao Chamado</h1>
+        <p id="chamadoInfo">Respondendo ao chamado: <span id="chamadoId"></span></p>
+    
+        <div id="historicoRespostas">
+            <!-- Histórico de respostas será carregado aqui -->
+        </div>
+    
+        <textarea id="textoResposta" rows="5" placeholder="Escreva sua resposta aqui..."></textarea>
+        
+        <div class="buttons">
+            <button id="btnEnviarResposta">Enviar Resposta</button>
+            <button id="btnEncerrarChamado">Encerrar Chamado</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idChamado = urlParams.get('id');
+            document.getElementById("chamadoId").innerText = idChamado;
+
+            console.log('Página carregada. ID do chamado:', idChamado);
+
+            // Função para carregar detalhes do chamado
+            async function carregarDetalhesChamado() {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/chamados/${idChamado}`);
+                    if (response.ok) {
+                        const chamado = await response.json();
+                        document.getElementById("chamadoId").innerText = chamado.titulo;
+                        console.log('Detalhes do chamado carregados:', chamado);
+                    } else {
+                        console.error('Erro ao carregar detalhes do chamado. Status:', response.status);
+                        document.getElementById("chamadoId").innerText = "Chamado não encontrado";
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar detalhes do chamado:", error);
+                    document.getElementById("chamadoId").innerText = "Erro ao carregar detalhes do chamado";
+                }
+            }
+
+            // Função para carregar histórico de respostas
+            async function carregarHistoricoRespostas() {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/respostas/${idChamado}`);
+                    if (response.ok) {
+                        const respostas = await response.json();
+                        console.log('Histórico de respostas carregado:', respostas);
+
+                        const historicoContainer = document.getElementById('historicoRespostas');
+                        historicoContainer.innerHTML = '<h3>Histórico de Respostas</h3>';
+
+                        respostas.forEach(resposta => {
+                            const respostaDiv = document.createElement('div');
+                            respostaDiv.classList.add('resposta-item');
+                            respostaDiv.innerHTML = `
+                                <p><strong>Data:</strong> ${new Date(resposta.data_resposta).toLocaleString()}</p>
+                                <p>${resposta.texto_resposta}</p>
+                                <hr>
+                            `;
+                            historicoContainer.appendChild(respostaDiv);
+                        });
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar histórico de respostas:", error);
+                }
+            }
+
+            // Função para encerrar chamado com confirmação
+            async function encerrarChamado() {
+                console.log('Tentando encerrar chamado com ID:', idChamado);
+
+                if (!idChamado) {
+                    alert("Erro: ID do chamado não encontrado.");
+                    return;
+                }
+
+                const confirmar = window.confirm("Tem certeza que deseja encerrar este chamado?");
+                if (!confirmar) {
+                    console.log('Encerramento cancelado pelo usuário.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`http://localhost:3000/api/encerrarChamado/${idChamado}`, {
+                        method: 'POST',
+                    });
+
+                    const result = await response.json();
+                    console.log('Resposta do backend ao encerrar chamado:', result);
+
+                    if (response.ok) {
+                        alert('Chamado encerrado com sucesso!');
+                        removerChamadoDaTabela(idChamado);
+                        window.opener?.postMessage({ action: 'atualizarTabela' }, '*');
+                        voltarAoPainel();
+                    } else {
+                        alert('Erro ao encerrar chamado: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Erro ao encerrar chamado:', error);
+                    alert('Erro ao encerrar chamado. Tente novamente.');
+                }
+            }
+
+            // Função para enviar resposta
+            async function enviarResposta() {
+                const textoResposta = document.getElementById('textoResposta').value.trim();
+
+                if (!textoResposta) {
+                    alert("A resposta não pode estar vazia!");
+                    return;
+                }
+
+                try {
+                    console.log("Enviando resposta para o backend. ID do chamado:", idChamado);
+
+                    const response = await fetch('http://localhost:3000/responderChamado', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            id_chamado: idChamado,
+                            texto_resposta: textoResposta,
+                        }),
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        console.log("Resposta enviada com sucesso:", result);
+                        alert("Resposta enviada com sucesso!");
+                        document.getElementById('textoResposta').value = '';
+                        carregarHistoricoRespostas();
+                    } else {
+                        console.error("Erro ao enviar resposta:", result.error);
+                        alert("Erro ao enviar resposta: " + result.error);
+                    }
+                } catch (error) {
+                    console.error("Erro ao enviar resposta:", error);
+                    alert("Erro ao enviar resposta.");
+                }
+            }
+
+            // Função para remover chamado da tabela no painel
+            function removerChamadoDaTabela(idChamado) {
+                console.log('Tentando remover o chamado da tabela com ID:', idChamado);
+                const tabela = window.opener?.document.getElementById('tabelaChamados');
+
+                if (!tabela) {
+                    console.log('Tabela de chamados não encontrada no painel.');
+                    return;
+                }
+
+                const linhas = tabela.getElementsByTagName('tr');
+                for (let i = 0; i < linhas.length; i++) {
+                    const colunaId = linhas[i].getElementsByTagName('td')[0];
+                    if (colunaId && colunaId.textContent == idChamado) {
+                        console.log('Removendo linha da tabela:', linhas[i]);
+                        tabela.deleteRow(i);
+                        return;
+                    }
+                }
+
+                console.warn('Linha do chamado não encontrada na tabela.');
+            }
+
+            // Função para voltar ao painel
+            function voltarAoPainel() {
+                console.log('Redirecionando de volta ao painel...');
+                window.location.href = "painel.html";
+            }
+
+            // Eventos para botões
+            document.getElementById('btnVoltar').addEventListener('click', voltarAoPainel);
+            document.getElementById('btnEnviarResposta').addEventListener('click', enviarResposta);
+            document.getElementById('btnEncerrarChamado').addEventListener('click', encerrarChamado);
+
+            // Carregar dados iniciais
+            carregarDetalhesChamado();
+            carregarHistoricoRespostas();
+        });
+    </script>
+</body>
+</html>
